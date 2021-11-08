@@ -39,7 +39,7 @@ public class GoogleSearchController {
 		
 		String searchQuery = keyWord.getKeyword(); //The query to search
 	    String cx = (String) jsonObject.get("cx"); //Your search engine CX
-	    String ApplicationName=(String) jsonObject.get("ApplicationName");// add the engine name created in google
+	    String ApplicationName=(String) jsonObject.get("ApplicationName");// Add the engine name created in google
 	    String GoogleKey=(String) jsonObject.get("GoogleKey"); //Add google generated key 
 	    
 	    //Instance Custom search
