@@ -20,4 +20,10 @@ In the GoogleSearchEngineApp/src/main/resources/templates/Credentials.json file 
 You can view a sample of the json result inside GoogleSearchEngineApp/src/main/resources/templates/OutputSample.json
 
 
+Note :
+The programmable search api will probably not return the exact results as google.com . 
+Kindly find more details in this link.
+https://support.google.com/programmable-search/answer/70392?hl=en
+
+
 
