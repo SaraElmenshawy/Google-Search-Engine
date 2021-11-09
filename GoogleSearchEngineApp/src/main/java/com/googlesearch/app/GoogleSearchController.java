@@ -1,13 +1,10 @@
 package com.googlesearch.app;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,32 +17,25 @@ import com.google.api.services.customsearch.CustomsearchRequestInitializer;
 import com.google.api.services.customsearch.model.Result;
 import com.google.api.services.customsearch.model.Search;
 import com.googlesearch.app.dto.SearchKeyWord;
+import com.googlesearch.app.general.JsonTemplatesReader;
 
 @RestController
 public class GoogleSearchController {
 	@RequestMapping(value="/GoogleSearch",method = RequestMethod.POST, consumes="application/json")
 	public List<Result> getSearchResults(@RequestBody SearchKeyWord keyWord) throws IOException, GeneralSecurityException
 	{
-		JSONParser parser = new JSONParser();
-
-		Object obj =new Object();
-		try {
-			obj = parser.parse(new FileReader("..\\GoogleSearchEngineApp\\src\\main\\resources\\templates\\Credentials.json"));
-		} catch (IOException | ParseException e) {
-			e.printStackTrace();
-		}
- 
-		JSONObject jsonObject = (JSONObject) obj;
-		
+		//read credentials json file
+		String filePath="..\\GoogleSearchEngineApp\\src\\main\\resources\\templates\\Credentials.json";
+		JSONObject jsonObject = JsonTemplatesReader.jsonFileReader(filePath);		
 		String searchQuery = keyWord.getKeyword(); //The query to search
-	    String cx = (String) jsonObject.get("cx"); //Your search engine CX
-	    String ApplicationName=(String) jsonObject.get("ApplicationName");// Add the engine name created in google
-	    String GoogleKey=(String) jsonObject.get("GoogleKey"); //Add google generated key 
+	    String cx = (String) jsonObject.get("CX"); //Your search engine CX
+	    String applicationName=(String) jsonObject.get("ApplicationName");// Add the engine name created in google
+	    String googleKey=(String) jsonObject.get("GoogleKey"); //Add google generated key 
 	    
 	    //Instance Custom search
 	    Customsearch cs = new Customsearch.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), null) 
-	                   .setApplicationName(ApplicationName) 
-	                   .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(GoogleKey)) 
+	                   .setApplicationName(applicationName) 
+	                   .setGoogleClientRequestInitializer(new CustomsearchRequestInitializer(googleKey)) 
 	                   .build();
 
 	    //Set search parameter	 
