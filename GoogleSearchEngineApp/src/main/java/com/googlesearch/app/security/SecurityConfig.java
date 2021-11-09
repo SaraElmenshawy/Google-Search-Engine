@@ -14,7 +14,7 @@ import com.googlesearch.app.general.JsonTemplatesReader;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		
 		//read credentials json file
 		String filePath="..\\GoogleSearchEngineApp\\src\\main\\resources\\templates\\Credentials.json";
@@ -25,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//basic authentication using username and password saved in the credentials file.
 		auth.inMemoryAuthentication().withUser(UserName).password("{noop}"+Password).roles("ADMIN");
+	
 	
 	}
 	
